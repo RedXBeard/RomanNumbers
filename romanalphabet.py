@@ -7,7 +7,7 @@ import re
 
 class InvalidInputError(Exception): pass
 
-BASE_ROMAN_NUMBERS = dict(M=1000, CM=900, D=500, CD=400, C=100,
+BASE_ROMAN_NUMBERS = dict(M=1000, CM=900, D=500, CD=400, C=100, XC=90,
                           L=50, XL=40, X=10, IX=9, V=5, IV=4, I=1)
 
 class RomanAlphabet(object):
@@ -25,18 +25,19 @@ class RomanAlphabet(object):
             if result:
                 self.roman = self.input
             else:
-                raise InvalidInputError, "Input has unqualified chars; '%s'" % message
+                raise InvalidInputError, \
+                        "Input has unqualified chars; '%s'" % message
 
     @staticmethod
     def check_for_romanchars(input):
         result = True, ""
         # chars has to be checked
         # if there is any unknown one according to the alphabet
-        # defined globally
+        # defined globally.
         acceptable_chars = BASE_ROMAN_NUMBERS.keys()
         unknown_chars = filter(lambda x: x not in acceptable_chars, input)
         # If there is any one, class initialization has to stop.
-        # if not checking process should be continued with syntactically
+        # if not checking process should be continued with syntactically.
         if unknown_chars:
             result = False, ", ".join(unknown_chars)
         else:
@@ -47,7 +48,9 @@ class RomanAlphabet(object):
     def check_for_romansyntax(input):
         result = True, ""
         # Regex used to check syntactically of given string
-        pattern = re.compile("M*(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$", re.VERBOSE)
+        pattern = re.compile("""(M*)(CM|CD|D?C{0,3})
+                                (XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$""",
+                             re.VERBOSE)
         grouped = pattern.search(input).group()
         # if regex check returns partially or none
         # then means input is incorrect
@@ -56,9 +59,31 @@ class RomanAlphabet(object):
         return result
 
     def convert_to_int(self):
-        # TO-DO: implementation
-        pass
+        # If the class is generated with an integer then
+        # that can be the result as well.
+        result = 0
+        if self.int:
+            result = self.int
+        else:
+            # Reversed sum has been considered
+            # by this way, pre roman char can be considered
+            # so current one can be checked whether
+            # related value should be added or extracted.
+            pre = 0
+            for i in range(len(self.roman)-1, -1, -1):
+                tmp = BASE_ROMAN_NUMBERS[self.roman[i]]
+                if tmp < pre:
+                    result -= tmp
+                else:
+                    result += tmp
+                pre = tmp
+        return result
 
     def convert_to_roman(self):
         # TO-DO: implementation
-        pass
+        result = None
+        if self.roman:
+            result = self.roman
+        else:
+            pass
+        return result
