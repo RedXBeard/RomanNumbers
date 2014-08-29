@@ -6,6 +6,7 @@ __date__ = "28 August 2014"
 import re
 
 class InvalidInputError(Exception): pass
+class ConvertionError(Exception): pass
 
 BASE_ROMAN_NUMBERS = dict(M=1000, CM=900, D=500, CD=400, C=100, XC=90,
                           L=50, XL=40, X=10, IX=9, V=5, IV=4, I=1)
@@ -30,6 +31,7 @@ class RomanAlphabet(object):
 
     @staticmethod
     def check_for_romanchars(input):
+        """ To check alphabet and give exact unmatched ones. """
         result = True, ""
         # chars has to be checked
         # if there is any unknown one according to the alphabet
@@ -46,9 +48,10 @@ class RomanAlphabet(object):
 
     @staticmethod
     def check_for_romansyntax(input):
+        """ syntactically check if given number for roman numeral system. """
         result = True, ""
         # Regex used to check syntactically of given string
-        pattern = re.compile("""(M*)(CM|CD|D?C{0,3})
+        pattern = re.compile("""M*(CM|CD|D?C{0,3})
                                 (XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$""",
                              re.VERBOSE)
         grouped = pattern.search(input).group()
@@ -59,6 +62,7 @@ class RomanAlphabet(object):
         return result
 
     def convert_to_int(self):
+        """ To represent roman numeral systemed value with in integer. """
         # If the class is generated with an integer then
         # that can be the result as well.
         result = 0
@@ -77,13 +81,32 @@ class RomanAlphabet(object):
                 else:
                     result += tmp
                 pre = tmp
-        return result
+        self.int = result
+        return self.int
 
     def convert_to_roman(self):
-        # TO-DO: implementation
-        result = None
+        """ To represent integer value with in roman number system. """
+        result = ""
+        # If the class is generated with in roman numeral system
+        # then that can be the result as well.
         if self.roman:
             result = self.roman
         else:
-            pass
-        return result
+            # To divide given integer input with an
+            # order base on roman alphabet,
+            # dict must be converted into an ordered list
+            base_sorted_numbers = sorted(BASE_ROMAN_NUMBERS.items(),
+                                         key=lambda x: x[1], reverse=True)
+            input = int(self.int)
+            # Each roman char's integer representation considered,
+            # according to the division result returned value generated.
+            for rnumber, number in base_sorted_numbers:
+                count = input / number
+                result += rnumber * count
+                input -= count * number
+        # To be sure generated representation whether correct or not.
+        if RomanAlphabet.check_for_romansyntax(result):
+            self.roman = result
+        else:
+            raise ConvertionError, 'Error occured while conversion'
+        return self.roman
