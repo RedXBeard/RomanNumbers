@@ -15,17 +15,10 @@ class RomanAlphabet(object):
 
     def __init__(self, input):
         self.input = str(input).upper()
-        self.int = None
-        self.roman = None
         # If input is an integer ...
-        if str(self.input).isdigit():
-            self.int = self.input
-        # ... Otherwise has to be checked
-        if not self.int:
+        if not str(self.input).isdigit():
             result, message = RomanAlphabet.check_for_romanchars(self.input)
-            if result:
-                self.roman = self.input
-            else:
+            if not result:
                 raise InvalidInputError, \
                         "Input has unqualified chars; '%s'" % message
 
@@ -54,7 +47,10 @@ class RomanAlphabet(object):
         pattern = re.compile("""M*(CM|CD|D?C{0,3})
                                 (XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$""",
                              re.VERBOSE)
-        grouped = pattern.search(input).group()
+        search_result = pattern.search(input)
+        grouped = ""
+        if search_result:
+            grouped = search_result.group()
         # if regex check returns partially or none
         # then means input is incorrect
         if grouped != input:
@@ -63,50 +59,69 @@ class RomanAlphabet(object):
 
     def convert_to_int(self):
         """ To represent roman numeral systemed value with in integer. """
-        # If the class is generated with an integer then
-        # that can be the result as well.
         result = 0
-        if self.int:
-            result = self.int
-        else:
-            # Reversed sum has been considered
-            # by this way, pre roman char can be considered
-            # so current one can be checked whether
-            # related value should be added or extracted.
-            pre = 0
-            for i in range(len(self.roman)-1, -1, -1):
-                tmp = BASE_ROMAN_NUMBERS[self.roman[i]]
-                if tmp < pre:
-                    result -= tmp
-                else:
-                    result += tmp
-                pre = tmp
-        self.int = result
-        return self.int
+        # Reversed sum has been considered
+        # by this way, pre roman char can be considered
+        # so current one can be checked whether
+        # related value should be added or extracted.
+        if not RomanAlphabet.check_for_romansyntax(self.input)[0]:
+            return self.input
+        pre = 0
+        for i in range(len(self.input)-1, -1, -1):
+            tmp = BASE_ROMAN_NUMBERS[self.input[i]]
+            if tmp < pre:
+                result -= tmp
+            else:
+                result += tmp
+            pre = tmp
+        return result
 
     def convert_to_roman(self):
         """ To represent integer value with in roman number system. """
         result = ""
-        # If the class is generated with in roman numeral system
-        # then that can be the result as well.
-        if self.roman:
-            result = self.roman
-        else:
-            # To divide given integer input with an
-            # order base on roman alphabet,
-            # dict must be converted into an ordered list
-            base_sorted_numbers = sorted(BASE_ROMAN_NUMBERS.items(),
-                                         key=lambda x: x[1], reverse=True)
-            input = int(self.int)
-            # Each roman char's integer representation considered,
-            # according to the division result returned value generated.
-            for rnumber, number in base_sorted_numbers:
-                count = input / number
-                result += rnumber * count
-                input -= count * number
+        # To divide given integer input with an
+        # order base on roman alphabet,
+        # dict must be converted into an ordered list
+        base_sorted_numbers = sorted(BASE_ROMAN_NUMBERS.items(),
+                                     key=lambda x: x[1], reverse=True)
+        try: input = int(self.input)
+        except: return self.input
+        # Each roman char's integer representation considered,
+        # according to the division result returned value generated.
+        for rnumber, number in base_sorted_numbers:
+            count = input / number
+            result += rnumber * count
+            input -= count * number
         # To be sure generated representation whether correct or not.
-        if RomanAlphabet.check_for_romansyntax(result):
-            self.roman = result
-        else:
+        if not RomanAlphabet.check_for_romansyntax(result):
             raise ConvertionError, 'Error occured while conversion'
-        return self.roman
+        return result
+
+    @staticmethod
+    def base_convertion(input, base):
+        """
+        base represetations as decimal as known, binary or any other,
+        can be converted by this method
+        """
+        result = ""
+        tmp = input
+        while True:
+            result = str(tmp%base) + result
+            tmp = tmp / base
+            if tmp < base:
+                result = str(tmp) + result
+                break
+        return result
+
+    def convert_to_binary(self):
+        """ To represent given input into binary system. """
+        result = ""
+        # Integer formatted reprentation is more useful, if it is then use it
+        # otherwise find out this representation.
+        integer_represent = ""
+        if str(self.input).isdigit():
+            integer_represent = int(self.input)
+        else:
+            integer_represent = int(RomanAlphabet.convert_to_roman(self.input))
+
+        return RomanAlphabet.base_convertion(integer_represent, 2)
