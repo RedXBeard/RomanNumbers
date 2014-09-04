@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = "Barbaros Yıldırım (barbarosaliyildirim@gmail.com)"
-__version__ = "0.4"
+__version__ = "1.0"
 __date__ = "28 August 2014"
 
 import re
@@ -122,6 +122,6 @@ class RomanAlphabet(object):
         if str(self.input).isdigit():
             integer_represent = int(self.input)
         else:
-            integer_represent = int(RomanAlphabet.convert_to_roman(self.input))
+            integer_represent = int(self.convert_to_int())
 
         return RomanAlphabet.base_convertion(integer_represent, 2)
