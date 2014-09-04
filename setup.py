@@ -1,13 +1,32 @@
-from distutils.core import setup
+#!/usr/bin/env python
+import os
+
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
+
+from linkedin import __version__
+
+
+with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
+    long_description = readme.read()
+    
 setup(
   name = 'RomanAlphabet',
   packages = ['RomanAlphabet'],
   version = '0.3',
-  description = 'Roman numeral system, integer numbers converter in eachother',
+  description = 'Numeral systems, binary, roman, integer',
   author = 'Barbaros Yıldırım',
   author_email = 'barbarosaliyildirim@gmail.com',
   url = 'https://github.com/RedXBeard/RomanNumbers',
   download_url = 'https://github.com/RedXBeard/RomanNumbers/tarball/0.3',
-  keywords = ['roman', 'romanalphabet', 'integer converter', 'integer to roman', 'roman to integer'],
-  classifiers = [],
+  keywords = ['roman', 'romanalphabet', 'integer converter', 'integer to roman', 
+              'roman to integer', 'binary', 'binary convertion'],
+  classifiers = [
+    'Intended Audience :: Developers',
+    'Operating System :: OS Independent',
+    'Programming Language :: Python :: 2.7',
+    'Natural Language :: English',
+  ],
 )
