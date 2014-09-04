@@ -6,9 +6,6 @@ try:
 except ImportError:
     from distutils.core import setup
 
-from linkedin import __version__
-
-
 with open(os.path.join(os.path.dirname(__file__), 'README.md')) as readme:
     long_description = readme.read()
     
