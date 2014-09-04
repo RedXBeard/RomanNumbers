@@ -25,5 +25,7 @@ setup(
     'Operating System :: OS Independent',
     'Programming Language :: Python :: 2.7',
     'Natural Language :: English',
+    'License :: OSI Approved :: GNU Library or Lesser General Public License (LGPL)',
   ],
+  long_description = """ To convert an integer or roman numeral number into eachother and also into binary format """
 )
