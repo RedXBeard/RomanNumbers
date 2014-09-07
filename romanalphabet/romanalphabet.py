@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = "Barbaros Yıldırım (barbarosaliyildirim@gmail.com)"
-__version__ = "1.0"
+__version__ = "1.1"
 __date__ = "28 August 2014"
 
 import re
@@ -57,6 +57,20 @@ class RomanAlphabet(object):
             result = False, input
         return result
 
+    @staticmethod
+    def check_for_binary(input):
+        """
+            Given number representation has to be decided whether given one
+            in binary representation or not.
+        """
+        result = True
+        if not unicode(input).isdigit():
+            result = False
+        else:
+            if filter(lambda x: int(x) > 1, unicode(input)):
+                result = False
+        return result
+
     def convert_to_int(self):
         """ To represent roman numeral systemed value with in integer. """
         result = 0
@@ -100,10 +114,12 @@ class RomanAlphabet(object):
     @staticmethod
     def base_convertion(input, base):
         """
-        base represetations as decimal as known, binary or any other,
-        can be converted by this method
+        base represetations as decimal as known, binary or any other between
+        2 and 10 can be converted by this method.
         """
         result = ""
+        if not unicode(base).isdigit() or base > 10 or base < 2:
+            raise InvalidInputError, u"base number must be between 2 and 10."
         tmp = input
         while True:
             result = str(tmp%base) + result
@@ -125,3 +141,47 @@ class RomanAlphabet(object):
             integer_represent = int(self.convert_to_int())
 
         return RomanAlphabet.base_convertion(integer_represent, 2)
+
+    @staticmethod
+    def addition(returned_base="decimal", *args):
+        try:
+            returned_base = str.lower(returned_base)
+            if returned_base not in ['decimal', 'binary', 'roman']:
+                raise TypeError
+        except TypeError:
+            raise InvalidInputError, \
+                u"first input must be one of 'decimal', 'binary' or 'roman'"
+        # Decimal addition is used for adding one into another
+        total = sum(map(lambda x: int(RomanAlphabet(x).convert_to_int()), args))
+        result = ""
+        # According to the wanted result type convertions are worked
+        if returned_base == "decimal":
+            result = total
+        elif returned_base == "binary":
+            result = RomanAlphabet(total).convert_to_binary()
+        elif returned_base == "roman":
+            result = RomanAlphabet(total).convert_to_roman()
+        return result
+
+    @staticmethod
+    def multiply(returned_base="decimal", *args):
+        try:
+            returned_base = str.lower(returned_base)
+            if returned_base not in ['decimal', 'binary', 'roman']:
+                raise TypeError
+        except TypeError:
+            raise InvalidInputError, \
+                u"first input must be one of 'decimal', 'binary' or 'roman'"
+        # Decimal multiplication is used for multipling one into another
+        mutiplied = reduce(lambda x,y: int(RomanAlphabet(x).convert_to_int()) *\
+                                   int(RomanAlphabet(y).convert_to_int()), \
+                                  args, 1)
+        result = ""
+        # According to the wanted result type convertions are worked
+        if returned_base == "decimal":
+            result = mutiplied
+        elif returned_base == "binary":
+            result = RomanAlphabet(mutiplied).convert_to_binary()
+        elif returned_base == "roman":
+            result = RomanAlphabet(mutiplied).convert_to_roman()
+        return result
