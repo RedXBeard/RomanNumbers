@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 __author__ = "Barbaros Yıldırım (barbarosaliyildirim@gmail.com)"
-__version__ = "1.1"
+__version__ = "1.2"
 __date__ = "28 August 2014"
 
 import re
