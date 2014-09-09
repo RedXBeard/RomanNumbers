@@ -10,6 +10,7 @@ Installation
 ------------
 
 .. code-block:: bash
+    
     $ pip install RomanAlphabet
 
 
@@ -18,6 +19,7 @@ Usage
 To represent an integer value into roman numeral system;
 
 .. code-block:: python
+    
     : from romanalphabet.romanalphabet import RomanAlphabet
     : rr = RomanAlphabet("4785")
     : rr.convert_to_roman()
@@ -26,6 +28,7 @@ To represent an integer value into roman numeral system;
 or into binary;
 
 .. code-block:: python
+    
     ...
     : rr.convert_to_binary()
     : '1001010110001'
@@ -34,6 +37,7 @@ or into binary;
 numbers can also be added or mutiplied into one another, as following; result could be three type of numeric format; "decimal", "binary" or in "roman";
 
 .. code-block:: python
+    
     : RomanAlphabet.addition("roman",1)
     : 'I'
     : RomanAlphabet.multiply("roman",1,2,3)
@@ -49,6 +53,7 @@ numbers can also be added or mutiplied into one another, as following; result co
 If first argument not one of <code>decimal</code> <code>roman</code> <code>binary</code> then the following error will be displayed
 
 .. code-block:: python
+    
     : RomanAlphabet.multiply("deciaml",7,4,2,4,2,3)
     ---------------------------------------------------------------------------
     InvalidInputError                         Traceback (most recent call last)
@@ -68,6 +73,7 @@ If first argument not one of <code>decimal</code> <code>roman</code> <code>binar
 Also roman numbers can be an input and represented with integer and binary format. If anything will goes wrong then for input as an example, none roman numerics if given then an understandable error will displayed.
 
 .. code-block:: python
+    
     : rr = RomanAlphabet("CVII")
     : rr.convert_to_int()
     : 107
