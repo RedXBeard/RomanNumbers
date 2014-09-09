@@ -17,7 +17,7 @@ setup(
   author = u'Barbaros YILDIRIM',
   author_email = 'barbarosaliyildirim@gmail.com',
   url = 'https://github.com/RedXBeard/RomanNumbers',
-  download_url = 'https://github.com/RedXBeard/RomanNumbers/tarball/1.1',
+  download_url = 'https://github.com/RedXBeard/RomanNumbers/tarball/1.3',
   keywords = ['roman', 'romanalphabet', 'integer converter', 'integer to roman',
               'roman to integer', 'binary', 'binary convertion'],
   classifiers = [
