@@ -1,8 +1,4 @@
 # -*- coding: utf-8 -*-
-__author__ = "Barbaros Yıldırım (barbarosaliyildirim@gmail.com)"
-__version__ = "1.3"
-__date__ = "28 August 2014"
-
 import re
 
 class InvalidInputError(Exception): pass
