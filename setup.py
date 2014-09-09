@@ -12,7 +12,7 @@ with open(os.path.join(os.path.dirname(__file__), 'README.rst')) as readme:
 setup(
   name = 'RomanAlphabet',
   packages = ['RomanAlphabet'],
-  version = '1.2',
+  version = '1.3',
   description = 'Numeral systems, binary, roman, integer',
   author = u'Barbaros YILDIRIM',
   author_email = 'barbarosaliyildirim@gmail.com',
