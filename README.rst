@@ -2,8 +2,21 @@ RomanNumbers
 ============
 
 .. image:: https://travis-ci.org/RedXBeard/RomanNumbers.svg?branch=master
-    :target: https://travis-ci.org/RedXBeard/RomanNumbers
-
+    :target: https://travis-ci.org/RedXBeard/RomanNumbers 
+    :alt: Build
+.. image:: https://pypip.in/download/RomanAlphabet/badge.svg
+    :target: https://pypi.python.org/pypi//RomanAlphabet/
+    :alt: Downloads
+.. image:: https://pypip.in/version/RomanAlphabet/badge.svg
+    :target: https://pypi.python.org/pypi/RomanAlphabet/
+    :alt: Latest Version
+.. image:: https://pypip.in/py_versions/RomanAlphabet/badge.svg
+    :target: https://pypi.python.org/pypi/RomanAlphabet/
+    :alt: Supported Python versions
+.. image:: https://pypip.in/license/RomanAlphabet/badge.svg
+    :target: https://pypi.python.org/pypi/RomanAlphabet/
+    :alt: License
+    
 Roman or Integer numbers can be converted into eachother an additionally representation of each one of them into binary
 format.
 
