@@ -1,10 +1,10 @@
 RomanNumbers
 ============
 [![Build Status](https://travis-ci.org/RedXBeard/RomanNumbers.svg?branch=master)](https://travis-ci.org/RedXBeard/RomanNumbers) 
-[![Downloads](https://pypip.in/download/RomanAlphabet/badge.svg)](https://pypi.python.org/pypi/RomanAlphabet/)
-[![Latest Version](https://pypip.in/version/RomanAlphabet/badge.svg)](https://pypi.python.org/pypi/RomanAlphabet/)
-[![Supported Python versions](https://pypip.in/py_versions/RomanAlphabet/badge.svg)](https://pypi.python.org/pypi/RomanAlphabet/)
-[![License](https://pypip.in/license/RomanAlphabet/badge.svg)](https://pypi.python.org/pypi/RomanAlphabet/)
+[![Downloads](https://img.shields.io/pypi/dm/RomanAlphabet.svg)](https://pypi.python.org/pypi/RomanAlphabet/)
+[![Latest Version](https://img.shields.io/pypi/v/RomanAlphabet.svg)](https://pypi.python.org/pypi/RomanAlphabet/)
+[![Supported Python versions](https://img.shields.io/pypi/pyversions/RomanAlphabet.svg)](https://pypi.python.org/pypi/RomanAlphabet/)
+[![License](https://img.shields.io/pypi/l/RomanAlphabet.svg)](https://pypi.python.org/pypi/RomanAlphabet/)
 
 Roman or Integer numbers can be converted into eachother an additionally representation of each one of them into binary
 format.
